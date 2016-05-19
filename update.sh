@@ -12,8 +12,6 @@ fi
 versions=( "${versions[@]%/}" )
 
 for version in "${versions[@]}"; do
-    dockerfiles=()
-
     for variant in $variants
     do
         mkdir -pv $version/$variant
@@ -47,29 +45,4 @@ for version in "${versions[@]}"; do
 
     done
 
-#    {
-#        cat templates/Dockerfile.template
-#    } > "$version/Dockerfile"
-#
-#    {
-#        cat Dockerfile.template
-#        echo ""
-#        echo ""
-#        cat Dockerfile.node.template
-#    } > $version/node/Dockerfile
-#
-#    dockerfiles+=( "$version/Dockerfile" )
-#    dockerfiles+=( "$version/fpm/Dockerfile" )
-#    dockerfiles+=( "$version/node/Dockerfile" )
-#
-#    (
-#        set -x
-#        sed -ri '
-#            s!%%BEDROCK_VERSION%%!'"$version"'!;
-#            s!%%BEDROCK_SHA1%%!'"$bedrockShaKey"'!;
-#            s!%%WP_CLI_VERSION%%!'"$wpCliVersion"'!;
-#            s!%%WP_CLI_SHA1%%!'"$wpCliShaKey"'!;
-#            s!%%COMPOSER_SETUP_SHA384%%!'"$composerSetupShaKey"'!;
-#        ' "${dockerfiles[@]}"
-#    )
 done
