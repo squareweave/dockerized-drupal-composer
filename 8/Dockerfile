@@ -1,6 +1,5 @@
 FROM drupal:8
 
-ENV COMPOSER_SETUP_SHA384 92102166af5abdb03f49ce52a40591073a7b859a86e8ff13338cf7db58a19f7844fbc0bb79b2773bf30791e935dbd938
 ENV DOCKERIZE_VERSION 0.2.0
 ENV DOCKERIZE_SHA1 29be833b6e27009216da54114c4b47ee2534db8c
 
@@ -20,7 +19,6 @@ RUN set -xe && \
     apt-get clean && \
     rm -r /var/lib/apt/lists/* && \
     curl -sS -o /tmp/composer-setup.php https://getcomposer.org/installer && \
-    echo "$COMPOSER_SETUP_SHA384 */tmp/composer-setup.php" | shasum -c - && \
     php /tmp/composer-setup.php --install-dir=/usr/bin --filename=composer && \
     rm /tmp/composer-setup.php && \
     curl -L -o /tmp/dockerize.tar.gz \
@@ -38,7 +36,7 @@ RUN set -xe && \
 WORKDIR /app
 
 COPY sites /var/www/html/sites
-COPY composer.json composer.lock complete-install.sh /app/
+COPY composer.json composer.lock set-permissions.sh /app/
 
 RUN set -xe && \
     composer install --no-dev && \
