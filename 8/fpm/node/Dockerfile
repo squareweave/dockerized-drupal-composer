@@ -36,7 +36,8 @@ RUN set -xe && \
 
 WORKDIR /app
 
-COPY sites autoload.php /var/www/html/
+COPY sites /var/www/html/sites
+COPY autoload.php /var/www/html/
 COPY composer.json composer.lock set-permissions.sh /app/
 
 RUN set -xe && \
