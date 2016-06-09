@@ -13,6 +13,7 @@ RUN set -xe && \
         git \
         zlib1g-dev \
         rsync \
+        mysql-client \
         --no-install-recommends \
         && \
     docker-php-ext-install zip && \
@@ -35,7 +36,7 @@ RUN set -xe && \
 
 WORKDIR /app
 
-COPY sites /var/www/html/sites
+COPY sites autoload.php /var/www/html/
 COPY composer.json composer.lock set-permissions.sh /app/
 
 RUN set -xe && \

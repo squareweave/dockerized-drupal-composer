@@ -14,7 +14,12 @@ for version in "${versions[@]}"; do
     for variant in $variants
     do
         mkdir -pv $version/$variant
-        cp -av templates/sites templates/composer.json templates/composer.lock templates/set-permissions.sh $version/$variant/
+        cp -av templates/sites \
+               templates/composer.json \
+               templates/composer.lock \
+               templates/set-permissions.sh \
+               templates/autoload.php \
+               $version/$variant/
 
         cat templates/Dockerfile > $version/$variant/Dockerfile
 

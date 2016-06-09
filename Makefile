@@ -9,7 +9,7 @@ clean:
 
 
 builder:
-	$(DOCKER) build -t squareweave/drupal-composer:${VARIANT} ${PATH}
+	$(DOCKER) build -t squareweave/dockerized-drupal-composer:${VARIANT} ${PATH}
 
 build-apache:
 	$(MAKE) builder VARIANT=8 PATH=8
