@@ -14,14 +14,22 @@ for version in "${versions[@]}"; do
     for variant in $variants
     do
         mkdir -pv $version/$variant
-        cp -av templates/sites \
-               templates/composer.json \
-               templates/composer.lock \
-               templates/set-permissions.sh \
-               templates/autoload.php \
+        cp -av templates/app \
                $version/$variant/
 
         cat templates/Dockerfile > $version/$variant/Dockerfile
+
+        target="php:5.6-apache"
+        if [[ $variant =~ fpm.* ]]
+        then
+            target="php:5.6-fpm"
+        else
+            {
+                echo ""
+                echo ""
+                cat templates/Dockerfile.apache
+            } >> $version/$variant/Dockerfile
+        fi
 
         if [[ $variant =~ .*node ]]
         then
@@ -30,12 +38,6 @@ for version in "${versions[@]}"; do
                 echo ""
                 cat templates/Dockerfile.node
             } >> $version/$variant/Dockerfile
-        fi
-
-        target="drupal:$version"
-        if [[ $variant =~ fpm.* ]]
-        then
-            target="drupal:$version-fpm"
         fi
 
 
