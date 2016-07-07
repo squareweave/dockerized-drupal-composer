@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:7.0-apache
 
 ENV DOCKERIZE_VERSION 0.2.0
 ENV DOCKERIZE_SHA1 29be833b6e27009216da54114c4b47ee2534db8c
@@ -48,6 +48,7 @@ ENV PATH=$PATH:/app/vendor/bin
 RUN set -xe && \
     sed -i 's#DocumentRoot.*#DocumentRoot /app/web#' /etc/apache2/apache2.conf && \
     sed -i 's#<Directory /var/www/>.*#<Directory /app/web/>#' /etc/apache2/apache2.conf && \
+    a2enmod rewrite && \
     true
 
 RUN set -xe && \

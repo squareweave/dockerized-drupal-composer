@@ -19,10 +19,10 @@ for version in "${versions[@]}"; do
 
         cat templates/Dockerfile > $version/$variant/Dockerfile
 
-        target="php:5.6-apache"
+        target="php:7.0-apache"
         if [[ $variant =~ fpm.* ]]
         then
-            target="php:5.6-fpm"
+            target="php:7.0-fpm"
         else
             {
                 echo ""
