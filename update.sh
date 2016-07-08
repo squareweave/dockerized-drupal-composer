@@ -24,6 +24,7 @@ for version in "${versions[@]}"; do
         then
             target="php:7.0-fpm"
         else
+            cp templates/apache2.conf $version/$variant/
             {
                 echo ""
                 echo ""

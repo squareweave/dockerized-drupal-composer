@@ -53,9 +53,9 @@ RUN set -xe && \
 
 ENV PATH=$PATH:/app/vendor/bin
 
+COPY apache2.conf /etc/apache2/apache2.conf
+
 RUN set -xe && \
-    sed -i 's#DocumentRoot.*#DocumentRoot /app/web#' /etc/apache2/apache2.conf && \
-    sed -i 's#<Directory /var/www/>.*#<Directory /app/web/>#' /etc/apache2/apache2.conf && \
     a2enmod rewrite && \
     true
 
