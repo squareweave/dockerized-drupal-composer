@@ -15,6 +15,7 @@ RUN set -xe && \
         libpng12-dev \
         libjpeg-dev \
         rsync \
+        patch \
         mysql-client \
         --no-install-recommends \
         && \
