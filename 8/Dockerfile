@@ -17,6 +17,7 @@ RUN set -xe && \
         rsync \
         patch \
         mysql-client \
+        ssmtp \
         --no-install-recommends \
         && \
     docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr && \
