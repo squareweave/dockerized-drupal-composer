@@ -5,9 +5,16 @@ ENV DOCKERIZE_SHA1 29be833b6e27009216da54114c4b47ee2534db8c
 
 ENV LC_ALL=C.UTF-8 \
     LANG=C.UTF-8 \
-    DEFAULT_TIMEZONE=Australia/Melbourne
+    DEFAULT_TIMEZONE="Australia/Melbourne" \
+    NR_INSTALL_SILENT=1 \
+    NR_APP_NAME="Drupal Application" \
+    NR_INSTALL_KEY="" \
+    PATH=$PATH:/app/vendor/bin \
+    COMPOSER_ALLOW_SUPERUSER=1
 
 RUN set -xe && \
+    curl -sL 'https://download.newrelic.com/548C16BF.gpg' | apt-key add - && \
+    echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' > /etc/apt/sources.list.d/newrelic.list && \
     apt-get -qq update && \
     apt-get -qq install \
         git \
@@ -18,11 +25,14 @@ RUN set -xe && \
         patch \
         mysql-client \
         ssmtp \
+        newrelic-php5 \
         --no-install-recommends \
         && \
     docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr && \
     docker-php-ext-install opcache gd mbstring pdo pdo_mysql zip && \
     apt-get clean && \
+    rm /etc/apt/sources.list.d/newrelic.list && \
+    apt-key del 548C16BF && \
     rm -r /var/lib/apt/lists/* && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     curl -L -o /tmp/dockerize.tar.gz \
@@ -52,8 +62,6 @@ RUN set -xe && \
     composer clear-cache && \
     ./set-permissions.sh && \
     true
-
-ENV PATH=$PATH:/app/vendor/bin
 
 RUN set -xe && \
     apt-get -qq update && \
