@@ -21,8 +21,9 @@ clean:
 	rm -rf ${BUILD_DIRECTORY}/${VERSIONS}
 
 commit:
-	$(GIT) add .
-	$(GIT) commit -m "Update based on commit ${COMMIT_ID} in branch ${TEMPLATE_BRANCH}"
+	cd ${BUILD_DIRECTORY} && $(GIT) add .
+	cd ${BUILD_DIRECTORY} && $(GIT) commit -m "Update based on commit ${COMMIT_ID} in branch ${TEMPLATE_BRANCH}"
+	cd ${BUILD_DIRECTORY} && $(GIT) push origin ${MAIN_BRANCH}
 
 update:
 	$(DOCKER) pull squareweave/dockerized-drupal-composer:${VERSIONS}
