@@ -1,6 +1,0 @@
-COPY apache2.conf /etc/apache2/apache2.conf
-
-RUN set -xe && \
-    a2enmod rewrite && \
-    a2dissite 000-default && \
-    true
