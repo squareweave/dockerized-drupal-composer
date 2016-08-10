@@ -13,23 +13,25 @@ versions=( "${versions[@]%/}" )
 for version in "${versions[@]}"; do
     for variant in $variants
     do
-        mkdir -pv /build/$version/$variant
-        cp -av templates/app \
-               $version/$variant/
+        DIRECTORY=/build/$version/$variant
 
-        cat templates/Dockerfile > $version/$variant/Dockerfile
+        mkdir -pv $DIRECTORY
+        cp -av templates/app \
+               $DIRECTORY/
+
+        cat templates/Dockerfile > $DIRECTORY/Dockerfile
 
         target="php:7.0-apache"
         if [[ $variant =~ fpm.* ]]
         then
             target="php:7.0-fpm"
         else
-            cp templates/apache2.conf $version/$variant/
+            cp templates/apache2.conf $DIRECTORY/
             {
                 echo ""
                 echo ""
                 cat templates/Dockerfile.apache
-            } >> $version/$variant/Dockerfile
+            } >> $DIRECTORY/Dockerfile
         fi
 
         if [[ $variant =~ .*node ]]
@@ -38,7 +40,7 @@ for version in "${versions[@]}"; do
                 echo ""
                 echo ""
                 cat templates/Dockerfile.node
-            } >> $version/$variant/Dockerfile
+            } >> $DIRECTORY/Dockerfile
         fi
 
 
@@ -46,7 +48,7 @@ for version in "${versions[@]}"; do
             set -x
             sed -ri '
                 s!%%BASE_LIBRARY%%!'"$target"'!;
-            ' "$version/$variant/Dockerfile"
+            ' "$DIRECTORY/Dockerfile"
         )
 
     done
