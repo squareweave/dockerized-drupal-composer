@@ -1,12 +1,37 @@
 DOCKER := docker
+GIT := git
 VERSIONS ?= 8
+BUILD_DIRECTORY = build
+MAIN_BRANCH = master
+COMMIT_ID ?= Unnamed commit
+TEMPLATE_BRANCH ?= template
 
-generate: clean
-	$(DOCKER) run --rm -ti -v $(PWD):/source -w /source debian:jessie bash update.sh ${VERSIONS}
+all: checkout clean generate commit
+
+checkout:
+	rm -rf ${BUILD_DIRECTORY}
+	$(GIT) fetch origin ${MAIN_BRANCH}
+	$(GIT) clone --branch ${MAIN_BRANCH} . ${BUILD_DIRECTORY}
+
+generate:
+	$(DOCKER) run --rm -ti -v $(PWD):/source -v $(PWD)/${BUILD_DIRECTORY}:/build -w /source debian:jessie bash \
+		update.sh ${VERSIONS}
 
 clean:
-	rm -rf ${VERSIONS}
+	rm -rf ${BUILD_DIRECTORY}/${VERSIONS}
 
+commit:
+	$(GIT) add .
+	$(GIT) commit -m "Update based on commit ${COMMIT_ID} in branch ${TEMPLATE_BRANCH}"
+
+update:
+	$(DOCKER) pull squareweave/dockerized-drupal-composer:${VERSIONS}
+	$(DOCKER) run --rm -ti \
+		-v $(PWD)/templates/app/composer.json:/app/composer.json \
+		-v $(PWD)/templates/app/composer.lock:/app/composer.lock \
+		-w /app \
+		squareweave/dockerized-drupal-composer:${VERSIONS} composer update \
+			--no-plugins --no-autoloader --no-scripts --prefer-stable ${VERBOSITY}
 
 builder:
 	$(DOCKER) build -t squareweave/dockerized-drupal-composer:${VARIANT} ${PATH}

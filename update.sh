@@ -13,7 +13,7 @@ versions=( "${versions[@]%/}" )
 for version in "${versions[@]}"; do
     for variant in $variants
     do
-        mkdir -pv $version/$variant
+        mkdir -pv /build/$version/$variant
         cp -av templates/app \
                $version/$variant/
 
