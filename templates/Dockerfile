@@ -58,5 +58,5 @@ COPY app /app
 RUN set -xe && \
     composer install --no-dev && \
     composer clear-cache && \
-    ./set-permissions.sh && \
+    ./scripts/set-permissions.sh && \
     true
