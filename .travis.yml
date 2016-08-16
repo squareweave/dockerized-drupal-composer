@@ -1,0 +1,64 @@
+sudo: required
+
+services:
+    - docker
+
+before_script:
+    - docker pull squareweave/dockerized-drupal-composer:8
+    - docker pull squareweave/dockerized-drupal-composer:8-node
+    - docker pull squareweave/dockerized-drupal-composer:8-fpm
+    - docker pull squareweave/dockerized-drupal-composer:8-fpm-node
+
+script:
+    - docker build -t squareweave/dockerized-drupal-composer:8 8/
+    - docker build -t squareweave/dockerized-drupal-composer:8-node 8/node
+    - docker build -t squareweave/dockerized-drupal-composer:8-fpm 8/fpm
+    - docker build -t squareweave/dockerized-drupal-composer:8-fpm-node 8/fpm/node
+
+after_success:
+    - docker tag squareweave/dockerized-drupal-composer:8 squareweave/dockerized-drupal-composer:latest
+    - docker tag squareweave/dockerized-drupal-composer:8-fpm squareweave/dockerized-drupal-composer:fpm
+    - docker tag squareweave/dockerized-drupal-composer:8-node squareweave/dockerized-drupal-composer:node
+    - docker tag squareweave/dockerized-drupal-composer:8-fpm-node squareweave/dockerized-drupal-composer:fpm-node
+    - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+
+deploy:
+    - provider: script
+      script: docker push squareweave/dockerized-drupal-composer:8
+      on:
+          branch: master
+
+    - provider: script
+      script: docker push squareweave/dockerized-drupal-composer:latest
+      on:
+          branch: master
+
+    - provider: script
+      script: docker push squareweave/dockerized-drupal-composer:8-node
+      on:
+          branch: master
+
+    - provider: script
+      script: docker push squareweave/dockerized-drupal-composer:node
+      on:
+          branch: master
+
+    - provider: script
+      script: docker push squareweave/dockerized-drupal-composer:8-fpm
+      on:
+          branch: master
+
+    - provider: script
+      script: docker push squareweave/dockerized-drupal-composer:fpm
+      on:
+          branch: master
+
+    - provider: script
+      script: docker push squareweave/dockerized-drupal-composer:8-fpm-node
+      on:
+          branch: master
+
+    - provider: script
+      script: docker push squareweave/dockerized-drupal-composer:fpm-node
+      on:
+          branch: master
