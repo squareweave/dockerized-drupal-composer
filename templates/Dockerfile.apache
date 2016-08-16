@@ -1,6 +1,7 @@
-COPY apache2.conf /etc/apache2/apache2.conf
+COPY apache2-drupal.conf /etc/apache2/sites-available/drupal.conf
 
 RUN set -xe && \
-    a2enmod rewrite && \
+    a2ensite drupal && \
     a2dissite 000-default && \
+    a2enmod rewrite && \
     true

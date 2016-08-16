@@ -17,6 +17,7 @@ for version in "${versions[@]}"; do
 
         mkdir -pv $DIRECTORY
         cp -av templates/app \
+               templates/php-config \
                $DIRECTORY/
 
         cat templates/Dockerfile > $DIRECTORY/Dockerfile
@@ -26,7 +27,7 @@ for version in "${versions[@]}"; do
         then
             target="php:7.0-fpm"
         else
-            cp templates/apache2.conf $DIRECTORY/
+            cp templates/apache2*.conf $DIRECTORY/
             {
                 echo ""
                 echo ""
