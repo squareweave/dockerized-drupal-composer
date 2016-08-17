@@ -67,4 +67,6 @@ RUN set -xe && \
     a2ensite drupal && \
     a2dissite 000-default && \
     a2enmod rewrite && \
+    mkdir -p /etc/apache2/conf-extra-enabled && \
+    echo "IncludeOptional conf-extra-enabled/*.conf" >> /etc/apache2/apache2.conf && \
     true
