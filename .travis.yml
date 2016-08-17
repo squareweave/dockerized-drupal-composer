@@ -13,7 +13,7 @@ before_script:
     - docker pull squareweave/dockerized-drupal-composer:$VERSION
 
 script:
-    - docker build -t squareweave/dockerized-drupal-composer:$VERSION $DIRECTORY
+    - docker build --pull -t squareweave/dockerized-drupal-composer:$VERSION $DIRECTORY
 
 after_success:
     - docker tag squareweave/dockerized-drupal-composer:$VERSION squareweave/dockerized-drupal-composer:$ALIAS
