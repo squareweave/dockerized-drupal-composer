@@ -52,6 +52,12 @@ for version in "${versions[@]}"; do
             ' "$DIRECTORY/Dockerfile"
         )
 
+        (
+            set -x
+            sed -ri '
+                s!%%DRUPAL_VERSION%%!'"$version"'!;
+            ' "$DIRECTORY/app/composer.json"
+        )
     done
 
 done

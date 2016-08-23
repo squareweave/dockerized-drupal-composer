@@ -10,9 +10,11 @@
     ],
     "require": {
         "composer/installers": "^1.0.20",
-        "drupal/core": "~8.0",
+        "drupal/core": "~%%DRUPAL_VERSION%%.0",
         "drush/drush": "~8.0",
-        "drupal/console": "~0.10"
+        "drupal/console": "~0.10",
+        "cweagans/composer-patches": "^1.5",
+        "oscarotero/env": "^1.0"
     },
     "conflict": {
         "drupal/drupal": "*"

@@ -1,6 +1,6 @@
 DOCKER := docker
 GIT := git
-VERSIONS ?= 8
+VERSIONS ?= 8 8.0 8.1 8.2
 BUILD_DIRECTORY = build
 MAIN_BRANCH = master
 COMMIT_ID ?= Unnamed commit
