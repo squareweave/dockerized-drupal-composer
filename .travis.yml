@@ -9,8 +9,18 @@ env:
     - VERSION=8-fpm DIRECTORY=8/fpm ALIAS=node
     - VERSION=8-fpm-node DIRECTORY=8/fpm/node ALIAS=fpm-node
 
+    - VERSION=8.0 DIRECTORY=8.0
+    - VERSION=8.0-node DIRECTORY=8.0/node
+    - VERSION=8.0-fpm DIRECTORY=8.0/fpm
+    - VERSION=8.0-fpm-node DIRECTORY=8.0/fpm/node
+
+    - VERSION=8.1 DIRECTORY=8.1
+    - VERSION=8.1-node DIRECTORY=8.1/node
+    - VERSION=8.1-fpm DIRECTORY=8.1/fpm
+    - VERSION=8.1-fpm-node DIRECTORY=8.1/fpm/node
+
 before_script:
-    - docker pull squareweave/dockerized-drupal-composer:$VERSION
+    - docker pull squareweave/dockerized-drupal-composer:$VERSION || true
 
 script:
     - docker build --pull -t squareweave/dockerized-drupal-composer:$VERSION $DIRECTORY
@@ -26,6 +36,6 @@ deploy:
           branch: master
 
     - provider: script
-      script: docker push squareweave/dockerized-drupal-composer:$ALIAS
+      script: if [ -n "$ALIAS" ]; then docker push squareweave/dockerized-drupal-composer:$ALIAS; fi
       on:
           branch: master
