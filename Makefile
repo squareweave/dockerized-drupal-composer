@@ -3,8 +3,8 @@ GIT := git
 VERSIONS ?= 8 8.0 8.1 8.2
 BUILD_DIRECTORY = build
 MAIN_BRANCH = master
-COMMIT_ID ?= Unnamed commit
-TEMPLATE_BRANCH ?= template
+COMMIT_ID ?= $(shell git rev-parse --short HEAD)
+TEMPLATE_BRANCH ?= $(shell git rev-parse --abbrev-ref HEAD)
 
 all: checkout clean generate commit
 
