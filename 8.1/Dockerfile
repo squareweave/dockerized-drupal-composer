@@ -58,7 +58,7 @@ COPY app /app
 RUN set -xe && \
     composer install --no-dev && \
     composer clear-cache && \
-    ./scripts/set-permissions.sh && \
+    drupal init && \
     true
 
 COPY apache2-drupal.conf /etc/apache2/sites-available/drupal.conf

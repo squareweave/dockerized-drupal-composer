@@ -58,7 +58,7 @@ COPY app /app
 RUN set -xe && \
     composer install --no-dev && \
     composer clear-cache && \
-    ./scripts/set-permissions.sh && \
+    drupal init && \
     true
 
 RUN set -xe && \
