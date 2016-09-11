@@ -47,6 +47,11 @@ RUN set -xe && \
     { \
         echo 'date.timezone = ${DEFAULT_TIMEZONE}'; \
     } > /usr/local/etc/php/conf.d/date-timezone.ini && \
+    # Configure woff2 fonts in the system mime (https://gist.github.com/sergejmueller/cf6b4f2133bcb3e2f64a)
+    echo 'application/font-woff2				woff2' >> /etc/mime.types && \
+    # Configure drush to always know where Drupal home is
+    mkdir -p ~/.drush && \
+    echo '<?php $options["root"] = "/app/web";' > ~/.drush/drushrc.php && \
     true
 
 COPY php-config/ /usr/local/etc/php/conf.d/
