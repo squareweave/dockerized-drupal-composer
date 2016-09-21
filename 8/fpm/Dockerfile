@@ -55,6 +55,7 @@ RUN set -xe && \
     true
 
 COPY php-config/ /usr/local/etc/php/conf.d/
+COPY ssmtp/ /etc/ssmtp
 
 WORKDIR /app
 
