@@ -18,6 +18,7 @@ for version in "${versions[@]}"; do
         mkdir -pv $DIRECTORY
         cp -av templates/app \
                templates/php-config \
+               templates/ssmtp \
                $DIRECTORY/
 
         cat templates/Dockerfile > $DIRECTORY/Dockerfile
