@@ -62,6 +62,9 @@ WORKDIR /app
 COPY app /app
 
 RUN set -xe && \
+    curl https://drupalconsole.com/installer -L -o /usr/local/bin/drupal && \
+    curl https://github.com/drush-ops/drush/releases/download/8.1.5/drush.phar -L -o /usr/local/bin/drush && \
+    chmod +755 /usr/local/bin/drupal /usr/local/bin/drush && \
     composer install --no-dev && \
     composer clear-cache && \
     drupal init && \
