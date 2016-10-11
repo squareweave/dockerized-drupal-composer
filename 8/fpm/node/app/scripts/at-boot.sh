@@ -23,6 +23,12 @@ then
         /usr/local/etc/php/conf.d/newrelic.ini
 fi
 
+if [ -n $MEMORY_LIMIT ]
+then
+    echo "Setting PHP memory limit to ${MEMORY_LIMIT}"
+    echo "memory_limit = ${MEMORY_LIMIT}" > /usr/local/etc/php/conf.d/resources.ini
+fi
+
 # Wait for the DB to settle
 dockerize -wait tcp://${DB_HOST:-db}:${DB_PORT:-3306} -timeout 60s -template /etc/ssmtp/ssmtp.conf.tmpl:/etc/ssmtp/ssmtp.conf
 
