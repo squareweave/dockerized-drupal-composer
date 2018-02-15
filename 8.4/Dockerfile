@@ -2,8 +2,7 @@ FROM php:7.1-apache
 
 ENV DOCKERIZE_VERSION 0.2.0
 ENV DOCKERIZE_SHA1 29be833b6e27009216da54114c4b47ee2534db8c
-ENV DRUPAL_CONSOLE_VERSION "1.6.0"
-ENV DRUSH_VERSION 1.6.0
+ENV DRUSH_VERSION 8.1.16
 
 ENV LC_ALL=C.UTF-8 \
     LANG=C.UTF-8 \
@@ -64,11 +63,9 @@ WORKDIR /app
 COPY app /app
 
 RUN set -xe && \
-    curl https://github.com/hechoendrupal/DrupalConsole/releases/download/${DRUPAL_CONSOLE_VERSION}/drupal.phar \
-        -L -o /usr/local/bin/drupal && \
     curl https://github.com/drush-ops/drush/releases/download/${DRUSH_VERSION}/drush.phar \
         -L -o /usr/local/bin/drush && \
-    chmod +755 /usr/local/bin/drupal /usr/local/bin/drush && \
+    chmod +755 /usr/local/bin/drush && \
     composer install --no-dev && \
     composer clear-cache && \
     true
