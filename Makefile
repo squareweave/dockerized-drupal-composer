@@ -1,6 +1,6 @@
 DOCKER := docker
 GIT := git
-VERSIONS ?= 8.4
+VERSIONS ?= 8.5
 BUILD_DIRECTORY = build
 MAIN_BRANCH = master
 COMMIT_ID ?= $(shell git rev-parse --short HEAD)
