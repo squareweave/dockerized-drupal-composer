@@ -22,7 +22,7 @@ RUN set -xe && \
     apt-get -qq install \
         git \
         zlib1g-dev \
-        libpng12-dev \
+        libpng-dev \
         libjpeg-dev \
         libmemcached-dev \
         rsync \
