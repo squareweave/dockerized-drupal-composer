@@ -33,18 +33,3 @@ update:
 		-w /app \
 		squareweave/dockerized-drupal-composer:${VERSIONS} composer update \
 			--no-plugins --no-autoloader --no-scripts --prefer-stable ${VERBOSITY}
-
-builder:
-	$(DOCKER) build -t squareweave/dockerized-drupal-composer:${VARIANT} ${PATH}
-
-build-apache:
-	$(MAKE) builder VARIANT=8 PATH=8
-
-build-fpm:
-	$(MAKE) builder VARIANT=8-fpm PATH=8/fpm
-
-build-node:
-	$(MAKE) builder VARIANT=8-node PATH=8/node
-	$(MAKE) builder VARIANT=8-fpm-node PATH=8/fpm/node
-
-build: build-apache build-fpm build-node
