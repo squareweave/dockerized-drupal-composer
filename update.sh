@@ -23,10 +23,10 @@ for version in "${versions[@]}"; do
 
         cat templates/Dockerfile > $DIRECTORY/Dockerfile
 
-        target="php:7.1-apache"
+        target="php:7.2-apache"
         if [[ $variant =~ fpm.* ]]
         then
-            target="php:7.1-fpm"
+            target="php:7.2-fpm"
         else
             cp templates/apache2*.conf $DIRECTORY/
             {
