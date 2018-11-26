@@ -2,7 +2,7 @@
 
 set -e
 
-variants=( ". fpm node fpm/node" )
+variants=( ". node" )
 
 versions=( "$@" )
 if [ ${#versions[@]} -eq 0 ]; then
