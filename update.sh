@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# This script should not be run directly. See the Makefile for more information. 
 set -e
 
 variants=( ". node" )
