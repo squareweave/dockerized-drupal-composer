@@ -14,13 +14,15 @@ ENV LC_ALL=C.UTF-8 \
     COMPOSER_ALLOW_SUPERUSER=1
 
 RUN set -xe && \
+    apt-get -qq update && \
+    apt-get -qq install gnupg && \
     curl -sL 'https://download.newrelic.com/548C16BF.gpg' | apt-key add - && \
     echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' > /etc/apt/sources.list.d/newrelic.list && \
     apt-get -qq update && \
     apt-get -qq install \
         git \
         zlib1g-dev \
-        libpng12-dev \
+        libpng-dev \
         libjpeg-dev \
         libmemcached-dev \
         rsync \
